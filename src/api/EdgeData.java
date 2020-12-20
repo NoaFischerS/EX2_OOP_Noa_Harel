@@ -12,38 +12,69 @@ public class EdgeData implements edge_data {
     private String info="x";
     private int tag=-1;
 
+    /**
+     * constructor
+     * @param src
+     * @param dest
+     * @param weight
+     */
+
     public EdgeData(int src, int dest, double weight) {
         this.s=src;
         this.d=dest;
         this.w=weight;
     }
 
+    /**
+     * copy constructor
+     * @param k
+     */
     public EdgeData(edge_data k) {
         this.s=k.getSrc();
         this.d=k.getDest();
         this.w=k.getWeight();
     }
 
+    /**
+     * return src point edge
+     * @return
+     */
     @Override
     public int getSrc() {
         return this.s;
     }
 
+    /**
+     * return dest point edge
+     * @return
+     */
     @Override
     public int getDest() {
         return this.d;
     }
 
+    /**
+     * return Weight for edge
+     * @return
+     */
     @Override
     public double getWeight() {
         return this.w;
     }
 
+    /**
+     * return edge info
+     * @return
+     */
     @Override
     public String getInfo() {
         return this.info;
     }
 
+    /**
+     * set egde info
+     * @param s
+     */
     @Override
     public void setInfo(String s) {
         if(s!=null)
@@ -52,18 +83,26 @@ public class EdgeData implements edge_data {
         }
     }
 
+    /**
+     * return edge tag
+     * @return
+     */
     @Override
     public int getTag() {
         return this.tag;
     }
 
+    /**
+     * set edge tag
+     * @param t - the new value of the tag
+     */
     @Override
     public void setTag(int t) {
         this.tag=t;
     }
 
     /**
-     * methode to equals between 2 nodes.
+     * methode to equals between 2 edge.
      * @param o
      * @return
      */
@@ -79,6 +118,9 @@ public class EdgeData implements edge_data {
         return false;
     }
 
+    /**
+     * class to serialize and deserialize edge object to/from json object
+     */
     static class EdgeDataJson implements JsonDeserializer<edge_data>, JsonSerializer<edge_data>
     {
 

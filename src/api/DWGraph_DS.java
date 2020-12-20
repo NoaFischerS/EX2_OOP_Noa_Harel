@@ -15,6 +15,9 @@ public class DWGraph_DS implements directed_weighted_graph
     private int edgeSize=0;
     private int MC=0;
 
+    /**
+     * constructor
+     */
     public DWGraph_DS()
     {
         graph=new HashMap<Integer,node_data>();
@@ -22,6 +25,10 @@ public class DWGraph_DS implements directed_weighted_graph
         destSet=new HashMap<Integer,Collection<Integer>>();
     }
 
+    /**
+     * copy constructor
+     * @param g
+     */
     public DWGraph_DS(directed_weighted_graph g)
     {
         graph = new HashMap<Integer, node_data>();
@@ -38,6 +45,11 @@ public class DWGraph_DS implements directed_weighted_graph
         }
     }
 
+    /**
+     * return node data by key id
+     * @param key - the node_id
+     * @return
+     */
     @Override
     public node_data getNode(int key) {
         if(graph.containsKey(key))
@@ -47,6 +59,9 @@ public class DWGraph_DS implements directed_weighted_graph
         return null;
     }
 
+    /**
+     * return edge by src and dest points
+     */
     @Override
     public edge_data getEdge(int src, int dest) {
         if(graph.containsKey(src) && graph.containsKey(dest) && src!=dest)
@@ -56,6 +71,10 @@ public class DWGraph_DS implements directed_weighted_graph
         return null;
     }
 
+    /**
+     * add an new node data to the graph
+     * @param n
+     */
     @Override
     public void addNode(node_data n) {
         if(n!=null)
@@ -67,6 +86,12 @@ public class DWGraph_DS implements directed_weighted_graph
         }
     }
 
+    /**
+     * connect between tow nodes at the graph and create a new edge
+     * @param src - the source of the edge.
+     * @param dest - the destination of the edge.
+     * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
+     */
     @Override
     public void connect(int src, int dest, double w) {
         if(graph.containsKey(src) && graph.containsKey(dest))
@@ -85,11 +110,20 @@ public class DWGraph_DS implements directed_weighted_graph
         }
     }
 
+    /**
+     * return node collection of the graph
+     * @return
+     */
     @Override
     public Collection<node_data> getV() {
         return graph.values();
     }
 
+    /**
+     * return neighbor collection for specific node
+     * @param node_id
+     * @return
+     */
     @Override
     public Collection<edge_data> getE(int node_id) {
         if(graph.containsKey(node_id))
@@ -100,6 +134,11 @@ public class DWGraph_DS implements directed_weighted_graph
         return c;
     }
 
+    /**
+     * remove a node from the graph
+     * @param key
+     * @return
+     */
     @Override
     public node_data removeNode(int key) {
         if(graph.containsKey(key))
@@ -125,6 +164,12 @@ public class DWGraph_DS implements directed_weighted_graph
         return null;
     }
 
+    /**
+     * remove a edge from the graph
+     * @param src
+     * @param dest
+     * @return
+     */
     @Override
     public edge_data removeEdge(int src, int dest) {
         if(graph.containsKey(src) && graph.containsKey(dest))
@@ -140,20 +185,31 @@ public class DWGraph_DS implements directed_weighted_graph
         return null;
     }
 
+    /**
+     * return node size at the graph
+     * @return
+     */
     @Override
     public int nodeSize() {
         return graph.size();
     }
-
+    /**
+     * return edge size at the graph
+     * @return
+     */
     @Override
     public int edgeSize() {
         return edgeSize;
     }
-
+    /**
+     * return MC at the graph
+     * @return
+     */
     @Override
     public int getMC() {
         return MC;
     }
+
 
     /**
      * methode for equals between 2 graph
@@ -199,6 +255,9 @@ public class DWGraph_DS implements directed_weighted_graph
         return false;
     }
 
+    /**
+     * class to serialize and deserialize grpah object to/from json object
+     */
     public static class DWGraph_DSJson implements JsonSerializer<directed_weighted_graph>, JsonDeserializer<directed_weighted_graph> {
 
         NodeData.NodeDataJson nodeJson = new NodeData.NodeDataJson();

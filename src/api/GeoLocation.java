@@ -38,6 +38,11 @@ public class GeoLocation implements geo_location{
         return z;
     }
 
+    /**
+     * distance between tow points
+     * @param g
+     * @return
+     */
     @Override
     public double distance(geo_location g) {
         if (g != null) {

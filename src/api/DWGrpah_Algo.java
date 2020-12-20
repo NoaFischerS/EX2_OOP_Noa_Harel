@@ -9,11 +9,18 @@ import java.util.*;
 public class DWGrpah_Algo implements dw_graph_algorithms{
     private directed_weighted_graph graph;
 
+    /**
+     * constructor
+     */
     public DWGrpah_Algo()
     {
         graph=new DWGraph_DS();
     }
 
+    /**
+     * init the graph algo to specific graph
+     * @param g
+     */
     @Override
     public void init(directed_weighted_graph g) {
         if(g!=null)
@@ -22,16 +29,29 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         }
     }
 
+    /**
+     * return the graph that work on
+     * @return
+     */
     @Override
     public directed_weighted_graph getGraph() {
         return graph;
     }
 
+    /**
+     * return copy of the graph that work on
+     * @return
+     */
     @Override
     public directed_weighted_graph copy() {
         return new DWGraph_DS(graph);
     }
 
+    /**
+     * check if the graph is Strong link graph / connected graph/
+     * its mean that from every node have a path to all nodes.
+     * @return
+     */
     @Override
     public boolean isConnected() {
         if (graph.nodeSize() <= 1) {
@@ -55,6 +75,12 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         return false;
     }
 
+    /**
+     * return the distance for the shortest path between tow nodes at the graph
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return
+     */
     @Override
     public double shortestPathDist(int src, int dest) {
         if (graph.getNode(src) != null && graph.getNode(dest) != null) {
@@ -71,7 +97,12 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         return -1;
     }
 
-
+    /**
+     * return the shortest path between tow nodes at the graph
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return
+     */
     @Override
     public List<node_data> shortestPath(int src, int dest) {
         List<node_data> path = new LinkedList<node_data>();
@@ -93,6 +124,11 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         return path;
     }
 
+    /**
+     * save the graph to a file
+     * @param file - the file name (may include a relative path).
+     * @return
+     */
     @Override
     public boolean save(String file) {
 
@@ -113,6 +149,11 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         return false;
     }
 
+    /**
+     * read the graph from a file
+     * @param file - file name of JSON file
+     * @return
+     */
     @Override
     public boolean load(String file) {
 
@@ -133,7 +174,11 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         return false;
     }
 
-
+    /**
+     * Dijkstra algorithm to check connected graph and to find the short path between tow nodes.
+     * @param src
+     * @return
+     */
     private HashMap<Integer, Weight> Dijkstra(int src) {
         Queue<Weight> queue = new PriorityQueue<Weight>();
         HashMap<Integer, Weight> hash = new HashMap<Integer, Weight>(); // hash for father key.
@@ -164,6 +209,9 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         return hash;
     }
 
+    /**
+     * clear node data details
+     */
     private void clear()
     {
         for (node_data n:graph.getV())
@@ -172,6 +220,12 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
             n.setTag(-1);
         }
     }
+
+    /**
+     * return a reverse graph, that it mean to flip the edge direction
+     * @param g
+     * @return
+     */
     private directed_weighted_graph reverseGraph(directed_weighted_graph g)
     {
         directed_weighted_graph reverseG=new DWGraph_DS();
@@ -187,6 +241,9 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         return reverseG;
     }
 
+    /**
+     * private class the present a distance/ weight between nodes, used for Dijkstra algorithm
+     */
     private class Weight implements Comparable<Weight>
     {
         private int key;

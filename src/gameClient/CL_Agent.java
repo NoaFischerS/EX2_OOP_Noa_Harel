@@ -17,13 +17,18 @@ public class CL_Agent {
     private double agentSpeed;
     private edge_data currentEdge;
     private node_data currentNode;
+    private node_data nextNode;
     private directed_weighted_graph graph;
     private CL_Pokemon pokemonDest;
     private long _sg_dt;
 
     private double score;
 
-
+    /**
+     * agent constructor
+     * @param g
+     * @param start_node
+     */
     public CL_Agent(directed_weighted_graph g, int start_node) {
         graph = g;
         setScore(0);
@@ -33,6 +38,10 @@ public class CL_Agent {
         setSpeed(0);
     }
 
+    /**
+     * update agent details from json
+     * @param json
+     */
     public void update(String json) {
         JSONObject line;
         try {
@@ -62,13 +71,21 @@ public class CL_Agent {
         }
     }
 
+    /**
+     * get src node for the agent
+     * @return
+     */
     //@Override
     public int getSrcNode() {
         return this.currentNode.getKey();
     }
 
+    /**
+     * agent object to json
+     * @return
+     */
     public String toJSON() {
-        int d = this.getNextNode();
+        int d = this.getNextNode().getKey();
         String ans = "{\"Agent\":{"
                 + "\"id\":" + this.agentId + ","
                 + "\"value\":" + this.score + ","
@@ -81,10 +98,19 @@ public class CL_Agent {
         return ans;
     }
 
+    /**
+     * set the collected score for the agent
+     * @param v
+     */
     private void setScore(double v) {
         this.score = v;
     }
 
+    /**
+     * set the next step node for the agent
+     * @param dest
+     * @return
+     */
     public boolean setNextNode(int dest) {
         boolean ans = false;
         int src = this.currentNode.getKey();
@@ -99,57 +125,94 @@ public class CL_Agent {
         return ans;
     }
 
+    /**
+     * set the current node for the agent
+     * @param src
+     */
     public void setCurrNode(int src) {
         this.currentNode = graph.getNode(src);
     }
 
+    /**
+     * return if the agent is moving
+     * @return
+     */
     public boolean isMoving() {
         return this.currentEdge != null;
     }
 
+    /**
+     * return string of agent
+     * @return
+     */
     public String toString() {
         return toJSON();
     }
 
-    public String toString1() {
-        String ans = "" + this.getID() + "," + agentPosition + ", " + isMoving() + "," + this.getValue();
-        return ans;
-    }
-
+    /**
+     * return agent id
+     * @return
+     */
     public int getID()
     {
         return this.agentId;
     }
 
+    /**
+     * return agent location
+     * @return
+     */
     public geo_location getLocation()
     {
         return agentPosition;
     }
 
-
+    /**
+     * get the collected score for the agent
+     */
     public double getValue()
     {
         return this.score;
     }
 
-
-    public int getNextNode()
+    /**
+     * get the next step node for agent
+     * @return
+     */
+    public node_data getNextNode()
     {
-        if (this.currentEdge == null)
-        {
-            return -1;
-        }
-        return this.currentEdge.getDest();
+        return this.nextNode;
     }
 
+    /**
+     * set the next step node for agent
+     * @return
+     */
+    public void setNextNode(node_data n)
+    {
+        this.nextNode=n;
+    }
+
+    /**
+     * get agent speed
+     * @return
+     */
     public double getSpeed() {
         return this.agentSpeed;
     }
 
+    /**
+     * set agent speed
+     * @param v
+     */
     public void setSpeed(double v) {
         this.agentSpeed = v;
     }
 
+    /**
+     * return the next pokemon dest
+     * @return
+     */
     public CL_Pokemon getPokemonDest() {
         return pokemonDest;
     }
@@ -158,33 +221,59 @@ public class CL_Agent {
         this.pokemonDest = curr_fruit;
     }
 
-    public void set_SDT(long ddtt) {
-        long ddt = ddtt;
-        if (this.currentEdge != null) {
-            double w = get_curr_edge().getWeight();
-            geo_location dest = graph.getNode(get_curr_edge().getDest()).getLocation();
-            geo_location src = graph.getNode(get_curr_edge().getSrc()).getLocation();
-            double de = src.distance(dest);
-            double dist = agentPosition.distance(dest);
-            if (this.getPokemonDest().get_edge() == this.get_curr_edge()) {
-                dist = pokemonDest.getLocation().distance(this.agentPosition);
-            }
-            double norm = dist / de;
-            double dt = w * norm / this.getSpeed();
-            ddt = (long) (1000.0 * dt);
-        }
-        this._sg_dt=ddt;
-    }
-
     public edge_data get_curr_edge() {
         return this.currentEdge;
     }
 
-    public long get_sg_dt() {
-        return _sg_dt;
+
+        public long timeSleep()
+    {
+        double weight=get_curr_edge().getWeight();
+        double dis=getDisOnEdge();
+        double s= weight * dis / this.getSpeed();
+        long d=(long)(1000.0 * s);
+        return d;
     }
 
-//    public void set_sg_dt(long _sg_dt) {
-//        this._sg_dt = _sg_dt;
-//    }
+    public long getTimeAfterEat()
+    {
+        double weight=get_curr_edge().getWeight();
+        double dis= 1 - getDisOnEdge();
+        double s=weight*dis /this.getSpeed();
+        long d=(long)(1000.0 * s);
+        return d;
+    }
+
+    private double getDisOnEdge()
+    {
+
+        geo_location src=graph.getNode(get_curr_edge().getSrc()).getLocation();
+        geo_location dest=graph.getNode(get_curr_edge().getDest()).getLocation();
+        double edge=src.distance(dest);
+        double dist=agentPosition.distance(dest);
+        if(getPokemonDest().get_edge().equals(this.get_curr_edge()))
+        {
+            dist=getPokemonDest().getLocation().distance(src);
+        }
+        return dist / edge;
+
+    }
+
+    public boolean isOnPokEdge()
+    {
+        if(getSrcNode()==pokemonDest.get_edge().getSrc())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean equals(CL_Agent a)
+    {
+        if(this.getID()==a.getID())
+            return true;
+        return false;
+
+    }
+
 }

@@ -1,9 +1,6 @@
 package gameClient;
 
-import api.directed_weighted_graph;
-import api.edge_data;
-import api.geo_location;
-import api.node_data;
+import api.*;
 import gameClient.util.Point3D;
 import gameClient.util.Range;
 import gameClient.util.Range2D;
@@ -29,6 +26,7 @@ public class Arena {
 	private List<String> info;
 	private static Point3D MIN = new Point3D(0, 100,0);
 	private static Point3D MAX = new Point3D(0, 100,0);
+	private game_service game;
 
 	public Arena()
 	{
@@ -49,6 +47,18 @@ public class Arena {
 	{
 		this.agentsList = a;
 	}
+	public long getTime_left() {
+		return game.timeToEnd();
+	}
+
+	public game_service getGame() {
+		return game;
+	}
+
+	public void setGame(game_service game) {
+		this.game = game;
+	}
+
 	public void setGraph(directed_weighted_graph g)
 	{
 		this.graph =g;
@@ -101,7 +111,6 @@ public class Arena {
 		try {
 			JSONObject jsonObject = new JSONObject(s);
 			JSONArray jsonArray = jsonObject.getJSONArray("Agents");
-// how to locate the agent by pokment at the start
 			for(int i=0;i<jsonArray.length();i++) {
 				CL_Agent c = new CL_Agent(g,0);
 				c.update(jsonArray.get(i).toString());

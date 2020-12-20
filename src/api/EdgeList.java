@@ -51,7 +51,6 @@ public class EdgeList {
 
     /**
      * check if this node and the other node are neighbor
-     *
      * @param i
      * @return
      */
@@ -64,7 +63,6 @@ public class EdgeList {
 
     /**
      * return a set values for all key that are neighbor for this node
-     *
      * @return
      */
     public Set<Integer> getKeyL() {
@@ -73,7 +71,6 @@ public class EdgeList {
 
     /**
      * remove node from the specific node's neighbor list
-     *
      * @param key
      */
     public void removeE(int key) {
@@ -82,6 +79,10 @@ public class EdgeList {
         }
     }
 
+    /**
+     * return collsction of all edge data neighbor
+     * @return
+     */
     public Collection<edge_data> getV()
     {
        return NodeNi.values();

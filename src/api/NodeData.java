@@ -11,6 +11,13 @@ public class NodeData implements node_data{
     private String info="x";
     private geo_location g;
 
+    /**
+     * constructor
+     * @param key
+     * @param x
+     * @param y
+     * @param z
+     */
     public NodeData(int key,double x, double y, double z)
     {
         this.keyId=key;
@@ -23,6 +30,9 @@ public class NodeData implements node_data{
         this.g=new GeoLocation(geoL);
     }
 
+    /**
+     * copy constructor
+     */
     public NodeData(node_data n)
     {
         this.keyId=n.getKey();
@@ -31,17 +41,29 @@ public class NodeData implements node_data{
         this.g=new GeoLocation(n.getLocation());
     }
 
+    /**
+     * return node key id
+     * @return
+     */
     @Override
     public int getKey() {
         return this.keyId;
     }
 
+    /**
+     * return node location
+     * @return
+     */
     @Override
     public geo_location getLocation() {
 
         return this.g;
     }
 
+    /**
+     * set node location
+     * @param p - new new location  (position) of this node.
+     */
     @Override
     public void setLocation(geo_location p) {
         if(p!=null) {
@@ -49,21 +71,31 @@ public class NodeData implements node_data{
         }
     }
 
+    /**
+     * dont used
+     * @return
+     */
     @Override
     public double getWeight() {
         return 0;
     }
 
     @Override
-    public void setWeight(double w) {
+    public void setWeight(double w) { }
 
-    }
-
+    /**
+     * return node info
+     * @return
+     */
     @Override
     public String getInfo() {
         return this.info;
     }
 
+    /**
+     * set node info
+     * @param s
+     */
     @Override
     public void setInfo(String s) {
         if(s!=null)
@@ -72,11 +104,19 @@ public class NodeData implements node_data{
         }
     }
 
+    /**
+     * return node tag
+     * @return
+     */
     @Override
     public int getTag() {
         return this.tag;
     }
 
+    /**
+     * set node tag
+     * @param t - the new value of the tag
+     */
     @Override
     public void setTag(int t) {
         this.tag=t;
@@ -99,6 +139,9 @@ public class NodeData implements node_data{
         return false;
     }
 
+    /**
+     * class to serialize and deserialize node object to/from json object
+     */
     static class NodeDataJson implements JsonDeserializer<node_data>, JsonSerializer<node_data>
     {
 
