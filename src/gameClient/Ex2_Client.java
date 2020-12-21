@@ -44,7 +44,7 @@ public class Ex2_Client implements Runnable {
 	 * @param a
 	 */
 	public static void main(String[] a) {
-		startGame(23, 318926854);
+		startGame(, 318926854);
 
 	}
 
