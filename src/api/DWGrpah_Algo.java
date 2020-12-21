@@ -18,7 +18,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * init the graph algo to specific graph
+     * init graph algo to a specific given graph
      * @param g
      */
     @Override
@@ -30,7 +30,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * return the graph that work on
+     * return this graph
      * @return
      */
     @Override
@@ -39,7 +39,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * return copy of the graph that work on
+     * return copy of this graph
      * @return
      */
     @Override
@@ -48,8 +48,8 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * check if the graph is Strong link graph / connected graph/
-     * its mean that from every node have a path to all nodes.
+     * checks if the graph is a Strong connected graph
+     * meaning that from every node there is a path to all the other nodes.
      * @return
      */
     @Override
@@ -76,7 +76,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * return the distance for the shortest path between tow nodes at the graph
+     * return the distance of the shortest path between two given nodes
      * @param src - start node
      * @param dest - end (target) node
      * @return
@@ -98,7 +98,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * return the shortest path between tow nodes at the graph
+     * return the shortest path between two given nodes
      * @param src - start node
      * @param dest - end (target) node
      * @return
@@ -125,7 +125,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * save the graph to a file
+     * saves the graph to a file
      * @param file - the file name (may include a relative path).
      * @return
      */
@@ -150,7 +150,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * read the graph from a file
+     * reads the graph from a file
      * @param file - file name of JSON file
      * @return
      */
@@ -175,7 +175,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * Dijkstra algorithm to check connected graph and to find the short path between tow nodes.
+     * Dijkstra algorithm to check if a graph is connected and to find the shortest path between two nodes.
      * @param src
      * @return
      */
@@ -210,7 +210,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * clear node data details
+     * clear node details
      */
     private void clear()
     {
@@ -222,7 +222,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * return a reverse graph, that it mean to flip the edge direction
+     * return a reverse graph, by reversing the edges
      * @param g
      * @return
      */
@@ -242,7 +242,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
     }
 
     /**
-     * private class the present a distance/ weight between nodes, used for Dijkstra algorithm
+     * private class that represents the distance/ weight between nodes, used in Dijkstra algorithm
      */
     private class Weight implements Comparable<Weight>
     {
@@ -281,7 +281,7 @@ public class DWGrpah_Algo implements dw_graph_algorithms{
         }
 
         /**
-         * Comparator for compare between the w-distance for node, used for Dijkstra algorithm on Priority Queue
+         * Compares between the w-distance of nodes, used in Dijkstra algorithm on a Priority Queue
          */
         @Override
         public int compareTo(Weight n) {

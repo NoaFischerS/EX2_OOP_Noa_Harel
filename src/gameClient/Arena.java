@@ -14,8 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * This class represents a multi Agents Arena which move on a graph - grabs Pokemons and avoid the Zombies.
- * @author boaz.benmoshe
+ * This class represents a multi Agents Arena which move on a graph - grabs Pokemons
  *
  */
 public class Arena {
@@ -50,7 +49,7 @@ public class Arena {
 	}
 
 	/**
-	 * set pokemon for arena
+	 * set pokemon of arena
 	 * @param p
 	 */
 	public void setPokemons(List<CL_Pokemon> p)
@@ -58,7 +57,7 @@ public class Arena {
 		this.pokemonList = p;
 	}
 	/**
-	 * set agents for arena
+	 * set agents of arena
 	 * @param a
 	 */
 	public void setAgents(List<CL_Agent> a)
@@ -67,7 +66,7 @@ public class Arena {
 	}
 
 	/**
-	 * return the left time until ending of the game
+	 * return the time left until game ends
 	 * @return
 	 */
 	public long getTime_left() {
@@ -82,14 +81,14 @@ public class Arena {
 		return game;
 	}
 /**
- * set the game service
+ * allows setting the game service
  */
 	public void setGame(game_service game) {
 		this.game = game;
 	}
 
 	/**
-	 * set the graph
+	 * allows setting the graph
 	 */
 	public void setGraph(directed_weighted_graph g)
 	{
@@ -105,7 +104,7 @@ public class Arena {
 		return agentsList;
 	}
 	/**
-	 * return pokemon list
+	 * return Pokemons list
 	 * @return
 	 */
 	public List<CL_Pokemon> getPokemons()
@@ -127,7 +126,7 @@ public class Arena {
 		return info;
 	}
 	/**
-	 * create and return agent list from json/string
+	 * creates and return agent list from json/string
 	 * @param s
 	 * @param g
 	 * @return
@@ -149,7 +148,7 @@ public class Arena {
 	}
 
 	/**
-	 * create and return pokemon list from json/string
+	 * creates and return Pokemons list from json/string
 	 * @param fs
 	 * @return
 	 */
@@ -174,7 +173,7 @@ public class Arena {
 	}
 
 	/**
-	 * update the edge for a pokemon
+	 * updates the edge of a given Pokemon
 	 * @param p
 	 * @param g
 	 */
@@ -194,7 +193,9 @@ public class Arena {
 	}
 
 	/**
-	 * all this next methode check if the pokemon is on edge and update it.
+	 * Checks if the Pokemon is on the edge and updates it if not
+	 * when building th graph in each move the Pokemons needs to be relocated
+	 * returns true iff succeeded
 	 * @param p
 	 * @param src
 	 * @param dest
@@ -230,6 +231,7 @@ public class Arena {
 		return isOnEdge(p,src, dest, g);
 	}
 
+
 	private static Range2D GraphRange(directed_weighted_graph g) {
 		Iterator<node_data> itr = g.getV().iterator();
 		double x0=0,x1=0,y0=0,y1=0;
@@ -252,6 +254,11 @@ public class Arena {
 		Range yr = new Range(y0,y1);
 		return new Range2D(xr,yr);
 	}
+	/**
+	 * will be used to do screen resizable
+	 * @param g
+	 * @param frame
+	 */
 	public static Range2Range w2f(directed_weighted_graph g, Range2D frame) {
 		Range2D world = GraphRange(g);
 		Range2Range ans = new Range2Range(world, frame);

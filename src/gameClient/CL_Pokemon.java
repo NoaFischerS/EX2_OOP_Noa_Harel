@@ -28,7 +28,7 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * create and return a pokemon from a string/ json
+	 * creates and return a Pokemon from string/ json
 	 * @param json
 	 * @return
 	 */
@@ -46,7 +46,8 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * pokemon to string for printing
+	 * Pokemon to string
+	 * used for printing
 	 * @return
 	 */
 	public String toString()
@@ -55,14 +56,14 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * return the pokemon edge is
+	 * return which edge the Pokemon is on
 	 * @return
 	 */
 	public edge_data get_edge() {
 		return pokmenEdge;
 	}
 	/**
-	 * set the pokemon edge is
+	 * allows setting the edge the Pokemon is on
 	 * @return
 	 */
 	public void set_edge(edge_data e) {
@@ -70,7 +71,7 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * return the pokemon location is
+	 * return the Pokemon location
 	 * @return
 	 */
 	public Point3D getLocation() {
@@ -78,7 +79,7 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * get the pokemon type
+	 * return the Pokemon's type
 	 * @return
 	 */
 	public int getType()
@@ -87,7 +88,7 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * return the pokemon score
+	 * return the Pokemon's score
 	 * @return
 	 */
 	public double getScore() {
@@ -95,7 +96,7 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * get pokemon eating agent
+	 * return the agent eating this Pokemon
 	 * @return
 	 */
 	public CL_Agent getEatAgent()
@@ -104,7 +105,7 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * set pokemon eating agent
+	 * allows setting agent eating this Pokemon
 	 * @param agent
 	 */
 	public void setEatAgent(CL_Agent agent)
@@ -113,7 +114,7 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 * equals between tow pokemon
+	 * Compeers between two Pokemons
 	 * @param p
 	 * @return
 	 */

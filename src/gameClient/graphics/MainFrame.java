@@ -7,8 +7,9 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
-/**
- * main frame class, we paint on panel for better Performance
+/**GUI
+ * main frame class
+ *
  */
 public class MainFrame extends JFrame
 {
@@ -19,6 +20,10 @@ public class MainFrame extends JFrame
 
     MainPanel mainPanel;
     game_service game;
+    /**
+     * constructor
+     */
+
 
     public MainFrame(String title, Arena arena)
     {
@@ -28,11 +33,17 @@ public class MainFrame extends JFrame
         initPanel(arena);
     }
 
-
+    /**
+     * updates the painting
+     */
 
     public void updateGraphic() {
         mainPanel.repaint();
     }
+
+    /**
+     * init the frame and closes it when user exists the game
+     */
 
     private void initFrame()
     {
@@ -41,6 +52,9 @@ public class MainFrame extends JFrame
         this.setBackground(Color.blue);
 
     }
+    /**
+     * init the panel
+     */
 
     private void initPanel(Arena arena)
     {

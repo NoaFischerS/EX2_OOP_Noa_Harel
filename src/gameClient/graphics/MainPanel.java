@@ -20,9 +20,11 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
+         /**GUI
+        * main panel class used to achieve better Performance,* draws on the panel and not frame to do so
+        */
 public class MainPanel extends JPanel {
-    //LinkedList<Point3D> points = new LinkedList<Point3D>();
+
 
     private Arena arena;
     private Range2Range _w2f;
@@ -31,6 +33,11 @@ public class MainPanel extends JPanel {
     private BufferedImage imageTitle;
     private BufferedImage imagePokemon;
     private BufferedImage imageTrainer;
+
+             /**
+              * init the images that are used in game
+               */
+
 
     public void initImages() {
         try {
@@ -47,7 +54,7 @@ public class MainPanel extends JPanel {
         initImages();
     }
 /**
- * paint panel paint
+ * paint panel
  */
     @Override
     public void paintComponent(Graphics g) {
@@ -64,13 +71,18 @@ public class MainPanel extends JPanel {
         drawInfo(g);
 
     }
-
+             /**
+              *init the arena game is preformed on
+              */
 
     public void initArena(Arena ar, int frameWidth, int frameHeight) {
         this.arena = ar;
         updateW2f(frameWidth, frameHeight);
 
     }
+             /**
+              * does the screen resizable
+              */
 
     private void updateW2f(int frameWidth, int frameHeight) {
         Range width = new Range(20, getWidth() - 20);
@@ -80,12 +92,17 @@ public class MainPanel extends JPanel {
         directed_weighted_graph graph = arena.getGraph();
         _w2f = Arena.w2f(graph, frame);
     }
-
+             /**
+              * adds title image
+              */
 
     private void drawTitle(Graphics g) {
         Image scaledImage = imageTitle.getScaledInstance(300, 100, Image.SCALE_SMOOTH);
         g.drawImage(scaledImage, 0, 0, this);
     }
+             /**
+              * draws information on screen and does it resizable
+              */
 
     private void drawInfo(Graphics g) {
 
@@ -100,6 +117,9 @@ public class MainPanel extends JPanel {
         g.setColor(Color.black);
         g.drawString("Time left : " + time + "s", this.getWidth() - 150, 50);
     }
+             /**
+              * draws the graph the game is preformed on
+              */
 
 
     private void drawGraph(Graphics g) {
@@ -114,6 +134,9 @@ public class MainPanel extends JPanel {
             }
         }
     }
+             /**
+              * draws the Pokemons by using an image
+              */
 
     private void drawPokemons(Graphics g) {
         List<CL_Pokemon> pokemons = arena.getPokemons();
@@ -140,6 +163,9 @@ public class MainPanel extends JPanel {
             }
         }
     }
+             /**
+              * draws the agents by using an image
+              */
 
     private void drawAgents(Graphics g) {
         java.util.List<CL_Agent> agents = (ArrayList<CL_Agent>) arena.getAgents();
@@ -166,6 +192,10 @@ public class MainPanel extends JPanel {
             }
         }
     }
+             /**
+              * draws the score of each agent and of all togther on screen
+              * does it resizable
+              */
 
     private void drawScore(Graphics g) {
         var agents = arena.getAgents();
@@ -189,6 +219,10 @@ public class MainPanel extends JPanel {
         g.drawString("Total Score: " + score, this.getWidth()  -400,50 + count );
 
     }
+             /**
+              * draws the nodes of the graph
+              * by level the information is taken from the game server
+              */
 
     private void drawNode(node_data n, int r, Graphics g) {
         geo_location pos = n.getLocation();
@@ -198,6 +232,10 @@ public class MainPanel extends JPanel {
         g.drawString("" + n.getKey(), (int) fp.x(), (int) fp.y() - 4 * r);
 
     }
+             /**
+              * draws the edges of the graph
+              * by level the information is taken from the game server
+              */
 
     private void drawEdge(edge_data e, Graphics g) {
         directed_weighted_graph gg = arena.getGraph();

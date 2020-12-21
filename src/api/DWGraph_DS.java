@@ -60,7 +60,7 @@ public class DWGraph_DS implements directed_weighted_graph
     }
 
     /**
-     * return edge by src and dest points
+     * return edge by src and dest nodes keys
      */
     @Override
     public edge_data getEdge(int src, int dest) {
@@ -72,7 +72,7 @@ public class DWGraph_DS implements directed_weighted_graph
     }
 
     /**
-     * add an new node data to the graph
+     * adds an new node to the graph
      * @param n
      */
     @Override
@@ -87,7 +87,7 @@ public class DWGraph_DS implements directed_weighted_graph
     }
 
     /**
-     * connect between tow nodes at the graph and create a new edge
+     * connects between two nodes at the graph and creates an edge between them
      * @param src - the source of the edge.
      * @param dest - the destination of the edge.
      * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
@@ -111,7 +111,7 @@ public class DWGraph_DS implements directed_weighted_graph
     }
 
     /**
-     * return node collection of the graph
+     * return a node collection of the graph
      * @return
      */
     @Override
@@ -135,7 +135,7 @@ public class DWGraph_DS implements directed_weighted_graph
     }
 
     /**
-     * remove a node from the graph
+     * removes a node from the graph
      * @param key
      * @return
      */
@@ -185,8 +185,7 @@ public class DWGraph_DS implements directed_weighted_graph
         return null;
     }
 
-    /**
-     * return node size at the graph
+    /**the number of nodes in the graph
      * @return
      */
     @Override
@@ -194,7 +193,7 @@ public class DWGraph_DS implements directed_weighted_graph
         return graph.size();
     }
     /**
-     * return edge size at the graph
+     * return number of edges in the graph
      * @return
      */
     @Override
@@ -202,7 +201,7 @@ public class DWGraph_DS implements directed_weighted_graph
         return edgeSize;
     }
     /**
-     * return MC at the graph
+     * return number of actions that where done on this graph
      * @return
      */
     @Override
@@ -212,7 +211,7 @@ public class DWGraph_DS implements directed_weighted_graph
 
 
     /**
-     * methode for equals between 2 graph
+     * mcompers between two graphs
      *
      * @param o
      * @return

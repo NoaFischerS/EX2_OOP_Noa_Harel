@@ -39,7 +39,7 @@ public class GeoLocation implements geo_location{
     }
 
     /**
-     * distance between tow points
+     * distance between two points
      * @param g
      * @return
      */

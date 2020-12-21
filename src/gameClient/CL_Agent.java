@@ -38,7 +38,7 @@ public class CL_Agent {
     }
 
     /**
-     * update agent details from json
+     * update agent information from json
      * @param json
      */
     public void update(String json) {
@@ -71,7 +71,7 @@ public class CL_Agent {
     }
 
     /**
-     * get src node for the agent
+     * get src node of the agent
      * @return
      */
     public int getSrcNode() {
@@ -97,7 +97,7 @@ public class CL_Agent {
     }
 
     /**
-     * set the collected score for the agent
+     * allows setting the achived score of the agent
      * @param v
      */
     private void setScore(double v) {
@@ -105,7 +105,7 @@ public class CL_Agent {
     }
 
     /**
-     * set the next step node for the agent
+     * allows setting the next  node of the agent
      * @param dest
      * @return
      */
@@ -121,7 +121,7 @@ public class CL_Agent {
     }
 
     /**
-     * set the current node for the agent
+     * allows setting the current node of the agent
      * @param src
      */
     public void setCurrNode(int src) {
@@ -129,7 +129,7 @@ public class CL_Agent {
     }
 
     /**
-     * return if the agent is moving
+     * return true iff the agent is moving
      * @return
      */
     public boolean isMoving() {
@@ -137,7 +137,7 @@ public class CL_Agent {
     }
 
     /**
-     * return string of agent
+     * return string that represent agent
      * @return
      */
     public String toString() {
@@ -145,7 +145,7 @@ public class CL_Agent {
     }
 
     /**
-     * return agent id
+     * return the agent's id
      * @return
      */
     public int getID()
@@ -163,7 +163,7 @@ public class CL_Agent {
     }
 
     /**
-     * get the collected score for the agent
+     * return the achived score of the agent
      */
     public double getValue()
     {
@@ -171,7 +171,7 @@ public class CL_Agent {
     }
 
     /**
-     * get the next step node for agent
+     * return the next node of agent
      * @return
      */
     public node_data getNextNode()
@@ -180,7 +180,7 @@ public class CL_Agent {
     }
 
     /**
-     * set the next step node for agent
+     * allows setting the next step node of the agent
      * @return
      */
     public void setNextNode(node_data n)
@@ -189,7 +189,7 @@ public class CL_Agent {
     }
 
     /**
-     * get agent speed
+     * return agent speed
      * @return
      */
     public double getSpeed() {
@@ -197,7 +197,7 @@ public class CL_Agent {
     }
 
     /**
-     * set agent speed
+     * allows setting agent speed
      * @param v
      */
     public void setSpeed(double v) {
@@ -205,7 +205,7 @@ public class CL_Agent {
     }
 
     /**
-     * return the next pokemon dest
+     * return the next Pokemon dest
      * @return
      */
     public CL_Pokemon getPokemonDest() {
@@ -221,7 +221,7 @@ public class CL_Agent {
     }
 
     /**
-     * return the current edge agent is
+     * return the current edge  the agent walks along
      * @return
      */
     public edge_data get_curr_edge() {
@@ -229,7 +229,8 @@ public class CL_Agent {
     }
 
     /**
-     * check the time for sleep for reduce moves by distance and weight
+     * checks the time to sleep to reduce moves
+     * by checking distance and weight
      * @return
      */
         public long timeSleep()
@@ -242,7 +243,8 @@ public class CL_Agent {
     }
 
     /**
-     * check the time for sleep for reduce moves by distance and weight after the pokemon is eat
+     * check the time best to sleep to reduce moves by distance and weight
+     * after the pokemon is eaten
      * @return
      */
     public long getTimeAfterEat()
@@ -255,7 +257,7 @@ public class CL_Agent {
     }
 
     /**
-     * for sleep time
+     * used in sleeping time
      * @return
      */
     private double getDisOnEdge()
@@ -274,7 +276,7 @@ public class CL_Agent {
     }
 
     /**
-     * equals between tow agents
+     * Compers two agents
      * @param a
      * @return
      */

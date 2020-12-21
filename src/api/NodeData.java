@@ -62,7 +62,7 @@ public class NodeData implements node_data{
 
     /**
      * set node location
-     * @param p - new new location  (position) of this node.
+     * @param p - new  location (position) of this node.
      */
     @Override
     public void setLocation(geo_location p) {
@@ -72,7 +72,7 @@ public class NodeData implements node_data{
     }
 
     /**
-     * dont used
+     * isn't used
      * @return
      */
     @Override
@@ -124,7 +124,7 @@ public class NodeData implements node_data{
     }
 
     /**
-     * methode to equals between 2 nodes.
+     * Compers between two nodes.
      * @param o
      * @return
      */

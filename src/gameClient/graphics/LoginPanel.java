@@ -40,7 +40,7 @@ class LoginPanel extends JFrame implements ActionListener {
     }
 
     /**
-     * manre run login panel
+     * run login panel
      * @param args
      */
     public static void main(String[] args) {

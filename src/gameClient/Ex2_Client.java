@@ -40,7 +40,7 @@ public class Ex2_Client implements Runnable {
 	int id;
 
 	/**
-	 * in main to start the game
+	 * main to start the game
 	 * @param a
 	 */
 	public static void main(String[] a) {
@@ -89,8 +89,8 @@ public class Ex2_Client implements Runnable {
 
 	/**
 	 * Moves each of the agents along the edge,
-	 * in case the agent is on a node the next destination (next edge) is by the closet pokemon that no have
-	 * agent at the wey there.
+	 * in case the agent is on a node the next destination (next edge) chosen is the closet Pokemon
+	 * that have no agent that is on his way to there
 	 * @param game
 	 * @param graph
 	 * @param
@@ -132,7 +132,7 @@ public class Ex2_Client implements Runnable {
 	}
 
 	/**
-	 * update the miss info, pokemon for eating agent
+	 * trying to make algorithm better didn't succeed. Pokemon of the agent
 	 * @param agentsList
 	 */
 	private static void updatePokToAgent(List<CL_Agent> agentsList)
@@ -151,7 +151,7 @@ public class Ex2_Client implements Runnable {
 	}
 
 	/**
-	 * update miss info, agent eating for pokemon
+	 * rying to make algorithm better didn't succeed. Agent eating the Pokemon
 	 * @param pokemonList
 	 */
 	private static void updateAgentToPok(List<CL_Pokemon> pokemonList)
@@ -170,7 +170,8 @@ public class Ex2_Client implements Runnable {
 	}
 
 	/**
-	 * try to calculate the delay time, for reduce the moves, don't success
+	 * didn't succeed
+	 * try to calculate the delay time, to reduce the moves and make algorithm better
 	 * @param game
 	 * @param graph
 	 * @return
@@ -202,7 +203,7 @@ public class Ex2_Client implements Runnable {
 	}
 
 	/**
-	 * check if the dest pokemon it eat
+	 * checks if the dest Pokemon of the agent is eaten by a closer agent that will be there faster
 	 * @param a
 	 * @return
 	 */
@@ -218,7 +219,8 @@ public class Ex2_Client implements Runnable {
 	}
 
 	/**
-	 * return the next node for the agent step, by find the closet pokemon
+	 * return the next node for the agent's next step,
+	 * by find the closet Pokemon
 	 * @param game
 	 * @param g
 	 * @param agentPlayer
@@ -241,7 +243,9 @@ public class Ex2_Client implements Runnable {
 	}
 
 	/**
-	 * return the closet pokemon from src node, if is eat agent is not null continue to the next one
+	 * return the closet pokemon from src node,
+	 * if not null, meaning the Pokemon is eaten by another agent
+	 * continue to the next closest Pokemon
 	 * @param g
 	 * @param agent
 	 * @return
@@ -282,7 +286,7 @@ public class Ex2_Client implements Runnable {
 	}
 
 	/**
-	 * PriorityQueue for the high pokemon score for the start
+	 * PriorityQueue to have the highest valuable Pokemon to start
 	 * @return
 	 */
 	private static Queue<CL_Pokemon> pokemonScore()
@@ -306,7 +310,7 @@ public class Ex2_Client implements Runnable {
 
 	/**
 	 * start the game and locate all agent.
-	 * also create the GUI.
+	 * creates the GUI.
 	 * @param game
 	 */
 	private void init(game_service game) {

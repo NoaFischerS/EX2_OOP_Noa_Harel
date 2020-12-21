@@ -27,7 +27,7 @@ public class EdgeList {
     }
 
     /**
-     * add a new node to the specific node's neighbor list
+     * adds a new node to the neighbor list
      *
      */
     public void addNi(edge_data e) {
@@ -38,7 +38,7 @@ public class EdgeList {
     }
 
     /**
-     * get the EdgeData for neighbor
+     * get the EdgeData of neighbors
      * @param i
      * @return
      */
@@ -50,7 +50,7 @@ public class EdgeList {
     }
 
     /**
-     * check if this node and the other node are neighbor
+     * check if this node and the given node are neighbors
      * @param i
      * @return
      */
@@ -62,7 +62,7 @@ public class EdgeList {
     }
 
     /**
-     * return a set values for all key that are neighbor for this node
+     * return a set values of all the keys that are neighbor of this node
      * @return
      */
     public Set<Integer> getKeyL() {
@@ -70,7 +70,7 @@ public class EdgeList {
     }
 
     /**
-     * remove node from the specific node's neighbor list
+     * removes node from the neighbor list
      * @param key
      */
     public void removeE(int key) {
@@ -80,7 +80,7 @@ public class EdgeList {
     }
 
     /**
-     * return collsction of all edge data neighbor
+     * return collection of all edges that are neighbors of node
      * @return
      */
     public Collection<edge_data> getV()
