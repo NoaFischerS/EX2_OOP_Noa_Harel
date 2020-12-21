@@ -15,40 +15,46 @@ public class Ex2_Client implements Runnable {
 	private static Arena arenaGame;
 	private static int counterMove=0;
 
+	/**
+	 * constructor
+	 * @param level
+	 * @param id
+	 */
 	public Ex2_Client(int level ,int id) {
 		this.level = level;
 		this.id = id;
 	}
-	public static void startGame(int level, int id) {
 
+	/**
+	 * start the game
+	 * @param level
+	 * @param id
+	 */
+	public static void startGame(int level, int id)
+	{
 		Thread player = new Thread(new Ex2_Client(level, id));
-
 		player.start(); //start the game
 	}
 
 	int level;
 	int id;
 
+	/**
+	 * in main to start the game
+	 * @param a
+	 */
 	public static void main(String[] a) {
-//		if (a.length != 0) {
-//			int id = Integer.parseInt(a[0]);
-//			int level = Integer.parseInt(a[1]);
-//			String s = a[1];
-		startGame(11, 435345345);
+		startGame(23, 318926854);
 
 	}
 
-
-// need to get from terminal the level and id
-//		Thread player = new Thread(new Ex2_Client());
-//		player.start(); //start the game
-
-
+	/**
+	 * run Thread
+	 */
 	@Override
 	public void run() {
-		//int level = 11;
-		game_service game = Game_Server_Ex2.getServer(this.level); // you have [0,23] games
-		//	int id = 318926854;
+		//get the level from the server and login
+		game_service game = Game_Server_Ex2.getServer(this.level);
 		game.login(this.id);
 
 		// creat the graph for the game
@@ -69,7 +75,7 @@ public class Ex2_Client implements Runnable {
 					windowGame.repaint();
 					windowGame.updateGraphic();
 				}
-				Thread.sleep(100);
+				Thread.sleep(99);
 				ind++;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -83,30 +89,34 @@ public class Ex2_Client implements Runnable {
 
 	/**
 	 * Moves each of the agents along the edge,
-	 * in case the agent is on a node the next destination (next edge) is chosen (randomly).
-	 *
+	 * in case the agent is on a node the next destination (next edge) is by the closet pokemon that no have
+	 * agent at the wey there.
 	 * @param game
 	 * @param graph
 	 * @param
 	 */
 	private static long moveAgants(game_service game, directed_weighted_graph graph) {
 		game.move();
+
 		List<CL_Agent> agentsList = Arena.json2Agent(game.getAgents(), graph);
 		List<CL_Pokemon> pokemonList = Arena.json2Pokemons(game.getPokemons());
+
 		if(counterMove>0) {
 			updatePokToAgent(agentsList);
 			updateAgentToPok(pokemonList);
 		}
+
 		arenaGame.setAgents(agentsList);
 		arenaGame.setPokemons(pokemonList);
-
+//update pokemon
 		for (CL_Pokemon p : arenaGame.getPokemons()) {
 			Arena.updateEdge(p, graph);
-			//p.setEatAgent(null);
 		}
 
-		for (CL_Agent agentPlayer : agentsList) {
+		long d=delayTime(game, graph); //this used for reduce the moves, don't success to used.
 
+		// choose the next step for every node.
+		for (CL_Agent agentPlayer : agentsList) {
 			if (!agentPlayer.isMoving()){
 				int id = agentPlayer.getID();
 				double v = agentPlayer.getValue();
@@ -117,14 +127,13 @@ public class Ex2_Client implements Runnable {
 			}
 		}
 		counterMove++;
-		return delayTime(game, graph);
+		return d;
 
 	}
 
 	/**
-	 * walk implementation!
-	 *
-	 * @return
+	 * update the miss info, pokemon for eating agent
+	 * @param agentsList
 	 */
 	private static void updatePokToAgent(List<CL_Agent> agentsList)
 	{
@@ -140,6 +149,11 @@ public class Ex2_Client implements Runnable {
 		}
 
 	}
+
+	/**
+	 * update miss info, agent eating for pokemon
+	 * @param pokemonList
+	 */
 	private static void updateAgentToPok(List<CL_Pokemon> pokemonList)
 	{
 		for(CL_Pokemon i :arenaGame.getPokemons())
@@ -154,34 +168,44 @@ public class Ex2_Client implements Runnable {
 		}
 
 	}
+
+	/**
+	 * try to calculate the delay time, for reduce the moves, don't success
+	 * @param game
+	 * @param graph
+	 * @return
+	 */
 	private static long delayTime(game_service game, directed_weighted_graph graph) {
-		long d = 500;
-		long t;
+		long d = -1;
+		long t=100;
 		int movmentAgnet=0;
 		for (CL_Agent agent : arenaGame.getAgents()) {
-			if (agent.isMoving()) {
-				movmentAgnet++;
-				Arena.updateEdge(agent.getPokemonDest(), graph);
-				if (eatPok(agent)) {
-					t = agent.getTimeAfterEat();
+			if(agent.getPokemonDest()!=null)
+			{
+				if (agent.isMoving()) {
+					movmentAgnet++;
+					Arena.updateEdge(agent.getPokemonDest(), graph);
+					if (eatPok(agent)) {
+						t = agent.getTimeAfterEat();
+					}
+					else {
+						t = agent.timeSleep();
+					}
+					if(t<d ||d==-1)
+						d=Math.max(90,t);
 				}
-				else {
-					t = agent.timeSleep();
-				}
-				if(t<d)
-					d=t;
 			}
 		}
-		if(movmentAgnet==0)
-			return 0;
+		if (movmentAgnet==0)
+		return 100;
 		return d;
 	}
 
-
-	//	private static boolean MorePokEdge(CL_Agent a)
-//	{
-//
-//	}
+	/**
+	 * check if the dest pokemon it eat
+	 * @param a
+	 * @return
+	 */
 	private static boolean eatPok(CL_Agent a)
 	{
 		for(CL_Pokemon p: arenaGame.getPokemons())
@@ -193,6 +217,13 @@ public class Ex2_Client implements Runnable {
 		return true;
 	}
 
+	/**
+	 * return the next node for the agent step, by find the closet pokemon
+	 * @param game
+	 * @param g
+	 * @param agentPlayer
+	 * @return
+	 */
 	private static int nextNode(game_service game,directed_weighted_graph g,CL_Agent agentPlayer)
 	{
 		int src = agentPlayer.getSrcNode();
@@ -209,6 +240,12 @@ public class Ex2_Client implements Runnable {
 
 	}
 
+	/**
+	 * return the closet pokemon from src node, if is eat agent is not null continue to the next one
+	 * @param g
+	 * @param agent
+	 * @return
+	 */
 	public static CL_Pokemon closetPokemon(directed_weighted_graph g, CL_Agent agent)
 	{
 		int src=agent.getSrcNode();
@@ -244,7 +281,10 @@ public class Ex2_Client implements Runnable {
 		return closetPokemon;
 	}
 
-
+	/**
+	 * PriorityQueue for the high pokemon score for the start
+	 * @return
+	 */
 	private static Queue<CL_Pokemon> pokemonScore()
 	{
 		Comparator<CL_Pokemon> copm=new Comparator<CL_Pokemon>() {
@@ -264,6 +304,11 @@ public class Ex2_Client implements Runnable {
 		return queue;
 	}
 
+	/**
+	 * start the game and locate all agent.
+	 * also create the GUI.
+	 * @param game
+	 */
 	private void init(game_service game) {
 		String pokemon = game.getPokemons();
 		GsonBuilder builder=new GsonBuilder();
@@ -276,7 +321,6 @@ public class Ex2_Client implements Runnable {
 		arenaGame.setPokemons(Arena.json2Pokemons(pokemon));
 
 		windowGame = new MainFrame("test Ex2", arenaGame);
-		//windowGame.update(arenaGame);
 		windowGame.show();
 
 

@@ -28,84 +28,110 @@ public class Arena {
 	private static Point3D MAX = new Point3D(0, 100,0);
 	private game_service game;
 
+	/**
+	 * constructor
+	 */
 	public Arena()
 	{
 		info = new ArrayList<String>();
 	}
 
+	/**
+	 * copy constructor
+	 * @param g
+	 * @param agents
+	 * @param pokemon
+	 */
 	private Arena(directed_weighted_graph g, List<CL_Agent> agents, List<CL_Pokemon> pokemon)
 	{
 		this.graph = g;
 		this.setAgents(agents);
 		this.setPokemons(pokemon);
 	}
+
+	/**
+	 * set pokemon for arena
+	 * @param p
+	 */
 	public void setPokemons(List<CL_Pokemon> p)
 	{
 		this.pokemonList = p;
 	}
+	/**
+	 * set agents for arena
+	 * @param a
+	 */
 	public void setAgents(List<CL_Agent> a)
 	{
 		this.agentsList = a;
 	}
+
+	/**
+	 * return the left time until ending of the game
+	 * @return
+	 */
 	public long getTime_left() {
 		return game.timeToEnd();
 	}
 
+	/**
+	 * return game service
+	 * @return
+	 */
 	public game_service getGame() {
 		return game;
 	}
-
+/**
+ * set the game service
+ */
 	public void setGame(game_service game) {
 		this.game = game;
 	}
 
+	/**
+	 * set the graph
+	 */
 	public void setGraph(directed_weighted_graph g)
 	{
 		this.graph =g;
 	}
-	//init();}
 
-	private void init( ) {
-		MIN=null; MAX=null;
-		double x0=0,x1=0,y0=0,y1=0;
-		Iterator<node_data> iter = graph.getV().iterator();
-		while(iter.hasNext()) {
-			geo_location c = iter.next().getLocation();
-			if(MIN==null) {x0 = c.x(); y0=c.y(); x1=x0;y1=y0;MIN = new Point3D(x0,y0);}
-			if(c.x() < x0) {x0=c.x();}
-			if(c.y() < y0) {y0=c.y();}
-			if(c.x() > x1) {x1=c.x();}
-			if(c.y() > y1) {y1=c.y();}
-		}
-		double dx = x1-x0, dy = y1-y0;
-		MIN = new Point3D(x0-dx/10,y0-dy/10);
-		MAX = new Point3D(x1+dx/10,y1+dy/10);
-
-	}
+	/**
+	 * return agents list
+	 * @return
+	 */
 	public List<CL_Agent> getAgents()
 	{
 		return agentsList;
 	}
+	/**
+	 * return pokemon list
+	 * @return
+	 */
 	public List<CL_Pokemon> getPokemons()
 	{
 		return pokemonList;
 	}
 
-
+	/**
+	 * return graph
+	 * @return
+	 */
 	public directed_weighted_graph getGraph()
 	{
 		return graph;
 	}
+
 	public List<String> get_info()
 	{
 		return info;
 	}
-	public void set_info(List<String> _info)
-	{
-		this.info = _info;
-	}
-
-	////////////////////////////////////////////////////
+	/**
+	 * create and return agent list from json/string
+	 * @param s
+	 * @param g
+	 * @return
+	 */
 	public static List<CL_Agent> json2Agent(String s, directed_weighted_graph g) {
 		ArrayList<CL_Agent> agentsListAns = new ArrayList<CL_Agent>();
 		try {
@@ -116,12 +142,17 @@ public class Arena {
 				c.update(jsonArray.get(i).toString());
 				agentsListAns.add(c);
 			}
-			//= getJSONArray("Agents");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return agentsListAns;
 	}
+
+	/**
+	 * create and return pokemon list from json/string
+	 * @param fs
+	 * @return
+	 */
 	public static ArrayList<CL_Pokemon> json2Pokemons(String fs) {
 		ArrayList<CL_Pokemon> ans = new  ArrayList<CL_Pokemon>();
 		try {
@@ -141,8 +172,13 @@ public class Arena {
 		catch (JSONException e) {e.printStackTrace();}
 		return ans;
 	}
+
+	/**
+	 * update the edge for a pokemon
+	 * @param p
+	 * @param g
+	 */
 	public static void updateEdge(CL_Pokemon p, directed_weighted_graph g) {
-		//	oop_edge_data ans = null;
 		for(node_data n:g.getV())
 		{
 			for(edge_data e: g.getE(n.getKey()))
@@ -157,9 +193,15 @@ public class Arena {
 		}
 	}
 
+	/**
+	 * all this next methode check if the pokemon is on edge and update it.
+	 * @param p
+	 * @param src
+	 * @param dest
+	 * @return
+	 */
 	private static boolean isOnEdge(geo_location p, geo_location src, geo_location dest )
 	{
-	//	boolean ans = false;
 		double dist = src.distance(dest);
 		double d1 = src.distance(p) + p.distance(dest);
 		if(dist>(d1-EPS2))

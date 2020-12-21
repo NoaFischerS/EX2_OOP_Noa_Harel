@@ -7,11 +7,11 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
-
+/**
+ * main frame class, we paint on panel for better Performance
+ */
 public class MainFrame extends JFrame
 {
-
-
 
     private static int FRAME_HEIGHT = 800;
     private static int FRAME_WIDTH = 800;
@@ -42,11 +42,8 @@ public class MainFrame extends JFrame
 
     }
 
-
-
     private void initPanel(Arena arena)
     {
-
         mainPanel = new MainPanel();
         this.add(mainPanel);
         mainPanel.initArena(arena, FRAME_WIDTH, FRAME_HEIGHT);

@@ -20,8 +20,7 @@ public class CL_Agent {
     private node_data nextNode;
     private directed_weighted_graph graph;
     private CL_Pokemon pokemonDest;
-    private long _sg_dt;
-
+//    private long _sg_dt;
     private double score;
 
     /**
@@ -75,7 +74,6 @@ public class CL_Agent {
      * get src node for the agent
      * @return
      */
-    //@Override
     public int getSrcNode() {
         return this.currentNode.getKey();
     }
@@ -119,9 +117,6 @@ public class CL_Agent {
         {
             ans = true;
         }
-//        else {
-//            currentEdge = null;
-//        }
         return ans;
     }
 
@@ -217,15 +212,26 @@ public class CL_Agent {
         return pokemonDest;
     }
 
+    /**
+     * set the next pokemon dest
+     * @return
+     */
     public void setPokemonDest(CL_Pokemon curr_fruit) {
         this.pokemonDest = curr_fruit;
     }
 
+    /**
+     * return the current edge agent is
+     * @return
+     */
     public edge_data get_curr_edge() {
         return this.currentEdge;
     }
 
-
+    /**
+     * check the time for sleep for reduce moves by distance and weight
+     * @return
+     */
         public long timeSleep()
     {
         double weight=get_curr_edge().getWeight();
@@ -235,6 +241,10 @@ public class CL_Agent {
         return d;
     }
 
+    /**
+     * check the time for sleep for reduce moves by distance and weight after the pokemon is eat
+     * @return
+     */
     public long getTimeAfterEat()
     {
         double weight=get_curr_edge().getWeight();
@@ -244,6 +254,10 @@ public class CL_Agent {
         return d;
     }
 
+    /**
+     * for sleep time
+     * @return
+     */
     private double getDisOnEdge()
     {
 
@@ -259,15 +273,11 @@ public class CL_Agent {
 
     }
 
-    public boolean isOnPokEdge()
-    {
-        if(getSrcNode()==pokemonDest.get_edge().getSrc())
-        {
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * equals between tow agents
+     * @param a
+     * @return
+     */
     public boolean equals(CL_Agent a)
     {
         if(this.getID()==a.getID())

@@ -38,6 +38,11 @@ class LoginPanel extends JFrame implements ActionListener {
         setSize(450,100);
         setVisible(true);
     }
+
+    /**
+     * manre run login panel
+     * @param args
+     */
     public static void main(String[] args) {
         if (args.length != 0) {
             int id = Integer.parseInt(args[0]);
@@ -47,6 +52,11 @@ class LoginPanel extends JFrame implements ActionListener {
         else
             new LoginPanel();
     }
+
+    /**
+     * get login panel input and start the game
+     * @param ae
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
 
